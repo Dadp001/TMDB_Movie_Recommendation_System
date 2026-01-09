@@ -7,6 +7,7 @@ import pandas as pd
 import httpx
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
@@ -311,6 +312,12 @@ def load_pickles():
 # =========================
 # ROUTES
 # =========================
+@app.get("/")
+def root():
+    """Redirect root to API docs"""
+    return RedirectResponse(url="/docs")
+
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
